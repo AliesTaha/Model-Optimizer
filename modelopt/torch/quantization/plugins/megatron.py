@@ -594,10 +594,11 @@ class _MegatronSequentialMLP(DynamicModule):
         amax_dict = {}
         for expert in self.local_experts:
             for name, module in expert.named_modules():
+                print(name, module)
                 if (
                     isinstance(module, TensorQuantizer)
                     and module.amax is not None
-                    and name == "input_quantizer"
+                    and "input_quantizer" in name
                 ):
                     stored_amax = amax_dict.get(name)
                     amax_tensor = module.amax.detach().clone()
@@ -613,7 +614,7 @@ class _MegatronSequentialMLP(DynamicModule):
                 if (
                     isinstance(module, TensorQuantizer)
                     and name in amax_dict
-                    and name == "input_quantizer"
+                    and "input_quantizer" in name
                 ):
                     module.amax = amax_dict[name].detach().clone()
 
