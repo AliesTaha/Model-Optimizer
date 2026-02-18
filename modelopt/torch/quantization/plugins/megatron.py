@@ -594,7 +594,6 @@ class _MegatronSequentialMLP(DynamicModule):
         amax_dict = {}
         for expert in self.local_experts:
             for name, module in expert.named_modules():
-                print(name, module)
                 if (
                     isinstance(module, TensorQuantizer)
                     and module.amax is not None

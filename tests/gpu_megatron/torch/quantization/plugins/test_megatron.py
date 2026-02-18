@@ -841,7 +841,6 @@ def _test_expert_model_parallel_amax_sync(
 
     # quantize the model
     model = mtq.quantize(model, config, forward)
-
     # Check initial sync status
     initial_sync, quantizer_type, rank_values = compare_amax_sync_across_expert_parallel(model)
     assert initial_sync, (
